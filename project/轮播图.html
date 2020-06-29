@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        border: 0;
+      }
+      .container {
+        width: 500px;
+        height: 200px;
+        margin: 100px auto;
+        position: relative;
+      }
+      .warp {
+        width: 500px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+      }
+      .warp ul {
+        display: flex;
+        position: absolute;
+        left: 0;
+        top: 0px;
+        width: 3000px;
+      }
+      #arr {
+        display: none;
+        z-index: 1000;
+      }
+      #arr span {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        margin-top: -20px;
+        background: #000;
+        cursor: pointer;
+        line-height: 40px;
+        text-align: center;
+        font-weight: bold;
+        font-family: '黑体';
+        font-size: 30px;
+        color: #fff;
+        opacity: 0.3;
+        border: 1px solid #fff;
+      }
+      #arr #right {
+        right: 5px;
+        left: auto;
+      }
+      ol {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        line-height: 20px;
+        text-align: center;
+      }
+      ol li {
+        float: left;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border: 1px solid #ccc;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+      ol li.current {
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="box">
+      <div class="warp">
+        <ul>
+          <li><img src="./images/wf1.jpg" alt="" /></li>
+          <li><img src="./images/wf2.jpg" alt="" /></li>
+          <li><img src="./images/wf3.jpg" alt="" /></li>
+          <li><img src="./images/wf4.jpg" alt="" /></li>
+          <li><img src="./images/wf5.jpg" alt="" /></li>
+        </ul>
+        <ol></ol>
+      </div>
+      <div id="arr">
+        <span id="left">&lt;</span><span id="right">&gt;</span>
+      </div>
+    </div>
+
+    <script>
+      //  获取相关节点
+      const container = document.getElementById('box')
+      const warp = container.children[0]
+      const ulList = warp.children[0]
+      const olList = warp.children[1]
+      const indexLength = ulList.children.length
+      const imgWidth = warp.offsetWidth
+      const arr = document.getElementById('arr')
+      const leftArr = document.getElementById('left')
+      const rightArr = document.getElementById('right')
+      // 记录当前激活的index
+      let active = 0
+      // 定时器ID
+      let timeId
+      //1、生成序号
+      // 获取图片数量，生成序号
+      for (let i = 0; i < indexLength; i++) {
+        const li = document.createElement('li')
+        olList.appendChild(li)
+        li.innerText = i + 1
+        // 添加index属性便于后面切换图片操作
+        li.setAttribute('index', i)
+        li.onclick = changePic
+      }
+      // 让序号1高亮显示
+      olList.children[0].className = 'current'
+      // 2、点击序号 动画的方式 切换图片
+      function changePic() {
+        // 取消所有按钮高亮
+        for (let i = 0; i < olList.children.length; i++) {
+          const li = olList.children[i]
+          li.className = ''
+        }
+        // 将当前按钮高亮
+        this.className = 'current'
+        // 根据点击按钮的index切换图片
+        const liIndex = parseInt(this.getAttribute('index'))
+        active = liIndex
+        animate(ulList, -liIndex * imgWidth)
+      }
+
+      // 3 鼠标放到盒子上显示箭头
+      container.onmouseenter = function () {
+        arr.style.display = 'block'
+        // 鼠标进入清除定时器
+        clearInterval(timeId)
+      }
+      container.onmouseleave = function () {
+        arr.style.display = 'none'
+        // 重启启动定时器
+        timeId = setInterval(() => {
+          rightArr.click()
+        }, 1000)
+      }
+      // 4 实现上一张和下一张的功能
+      // 上一张
+      leftArr.onclick = function () {
+        // 如果是第一张的话 先切换到最后一张 再进行滚动
+        if (active === 0) {
+          active = indexLength
+          ulList.style.left = -active * imgWidth + 'px'
+        }
+        if (active > 0) {
+          // 根据index切换图片
+          active--
+          // 通过调用上面的点击事件来跳转，这样就可以直接切换当前激活的样式
+          olList.children[active].click()
+        }
+      }
+      // 下一张
+      rightArr.onclick = function () {
+        console.log(indexLength)
+        // 如果是当前位于克隆出来的位置则切换到第一张去
+        if (active === indexLength) {
+          active = 0
+          ulList.style.left = '0px'
+        }
+        // 根据index切换图片
+        active++
+        // 如果是正常的存在序号的则正常执行 最后一张没有序号点则手动切换
+        if (active < indexLength) {
+          olList.children[active].click()
+        } else {
+          animate(ulList, -active * imgWidth)
+          // 然后对高亮进行处理
+          // 取消所有序号的高亮显示，让第一序号高亮显示
+          for (var i = 0; i < olList.children.length; i++) {
+            var li = olList.children[i]
+            li.className = ''
+          }
+          olList.children[0].className = 'current'
+        }
+      }
+
+      // 5、实现无缝滚动
+      const tmp = ulList.children[0].cloneNode(true)
+      ulList.appendChild(tmp)
+
+      // 自动滚动
+      timeId = setInterval(() => {
+        rightArr.click()
+      }, 1000)
+
+      // 封装动画的函数
+      function animate(element, target) {
+        // 通过判断，保证页面上只有一个定时器在执行动画
+        if (element.timerId) {
+          clearInterval(element.timerId)
+          element.timerId = null
+        }
+
+        element.timerId = setInterval(function () {
+          // 步进  每次移动的距离
+          var step = 10
+          // 盒子当前的位置
+          var current = element.offsetLeft
+          // 当从400 到 800  执行动画
+          // 当从800 到 400  不执行动画
+
+          // 判断如果当前位置 > 目标位置 此时的step  要小于0
+          if (current > target) {
+            step = -Math.abs(step)
+          }
+
+          // Math.abs(current - target)   <= Math.abs(step)
+          if (Math.abs(current - target) <= Math.abs(step)) {
+            // 让定时器停止
+            clearInterval(element.timerId)
+            // 让盒子到target的位置
+            element.style.left = target + 'px'
+            return
+          }
+          // 移动盒子
+          current += step
+          element.style.left = current + 'px'
+        }, 5)
+      }
+    </script>
+  </body>
+</html>
