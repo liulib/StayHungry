@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        position: relative;
+      }
+      .left {
+        width: 200px;
+        height: 200px;
+        background-color: skyblue;
+      }
+      .right {
+        height: 200px;
+        background-color: pink;
+      }
+      /* 第一种：浮动加BFC
+      .left {
+        float: left;
+      }
+      .right {
+        overflow: hidden;
+      } */
+      /* 第二种：浮动加margin
+      .left {
+        float: left;
+      }
+      .right {
+        margin-left: 200px;
+      } */
+      /* 第三种：绝对定位加margin
+      .left {
+        position: absolute;
+      }
+      .right {
+        margin-left: 200px;
+      } */
+      /* 第四种：绝对定位，这里其实还是不太懂，为啥不设置right、top、bottom是不可以的
+      .right {
+        position: absolute;
+        left: 200px;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      } */
+      /* 第五种：flex、一边固定宽度，一边设置占满剩下的位置*/
+      .container {
+        display: flex;
+      }
+      .right {
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 两栏布局一般指的是页面中一共两栏，左边固定，右边自适应的布局 -->
+    <div class="container">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+  </body>
+</html>
