@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        height: 100px;
+        position: relative;
+      }
+
+      .center {
+        background-color: red;
+        margin: 0 100px;
+      }
+
+      .left {
+        background-color: green;
+        position: absolute;
+        left: 0;
+      }
+
+      .right {
+        background-color: blue;
+        position: absolute;
+        right: 0;
+      }
+
+      .left,
+      .right {
+        width: 100px;
+        top: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 也可以两边浮动、中间绝对定位 -->
+    <div class="container">
+      <!-- 优先渲染 -->
+      <div class="center">
+        center
+      </div>
+      <div class="left">
+        left
+      </div>
+      <div class="right">
+        right
+      </div>
+    </div>
+  </body>
+</html>

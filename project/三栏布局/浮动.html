@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        height: 100px;
+      }
+
+      .center {
+        background-color: red;
+        margin: 0 100px;
+      }
+
+      .left {
+        background-color: green;
+        float: left;
+      }
+
+      .right {
+        background-color: blue;
+        float: right;
+      }
+
+      .left,
+      .right {
+        width: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- center得放在后面 -->
+    <div class="container">
+      <div class="left">
+        left
+      </div>
+      <div class="right">
+        right
+      </div>
+      <!-- 优先渲染 -->
+      <div class="center">
+        center
+      </div>
+    </div>
+  </body>
+</html>
