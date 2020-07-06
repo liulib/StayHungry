@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //   < !-- var a = [1, 2, 3, 4, 5, 6, 7, 8, 9]; var b = [1, 3, 5, 7, 9]; 获取数组a和b的差集（a数组里面有，而b数组里面没有的所有元素），并转换成数组输出来。 -->
+      //   var a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      //   var b = [1, 3, 5, 7, 9]
+      //   var c = a.filter((item) => {
+      //     return b.every((item1) => item !== item1)
+      //   })
+      //   console.log(c)
+
+      //   我们把一个数字倒着读和原数字相同的数字称之为对称数，(例如 1, 121, 88, 8998) ，不 考虑性能，请找出 1—10000 之间的对称数，要求用 javaScript 实现
+      //   var tmp = []
+      //   for (let i = 1; i < 10000; i++) {
+      //     console.log(i)
+      //     if (String(i) === String(i).split('').reverse().join('')) {
+      //       tmp.push(i)
+      //     }
+      //   }
+      //   console.log(tmp)
+
+      //   用 js 实现随机选取 10–100 之间的 10 个不重复的数字，存入一个数组，并排序。
+      //   随机数生成函数
+      //   function randomNum(min, max) {
+      //     return Math.floor(Math.random() * (max - min + 1)) + min
+      //   }
+      //   var tmp = []
+      //   //   生成十个数字加入数组
+      //   for (let i = 0; i < 10; i++) {
+      //     tmp.push(randomNum(10, 100))
+      //   }
+      //   //   排序
+      //   tmp.sort((a, b) => a - b)
+      //   console.log(tmp)
+
+      // 写一个求和的函数 sum，达到下面的效果
+      // Should equal 15
+      // sum(1, 2, 3, 4, 5);
+      // Should equal 0
+      // sum(5, null, -5);
+      // Should equal 10
+      // sum('1.0', false, 1, true, 1, 'A', 1, 'B', 1, 'C', 1, 'D', 1, 'E', 1, 'F', 1, 'G', 1);
+      // Should equal 0.3, not 0.30000000000000004
+      // sum(0.1, 0.2)
+      function userSum() {
+        let res = 0
+
+        for (let i = 0; i < arguments.length; i++) {
+          item = arguments[i]
+          if (item === true || item === false || item === null) {
+            number = NaN
+          } else {
+            number = Number(item)
+          }
+          if (!isNaN(number)) {
+            res += number
+          }
+        }
+        return res
+      }
+      console.log(userSum(1, 2, 3, 4, 5))
+      console.log(userSum(5, null, -5))
+      console.log(
+        userSum(
+          '1.0',
+          false,
+          1,
+          true,
+          1,
+          'A',
+          1,
+          'B',
+          1,
+          'C',
+          1,
+          'D',
+          1,
+          'E',
+          1,
+          'F',
+          1,
+          'G',
+          1
+        )
+      )
+      //   userSum(0.1, 0.2)
+
+      //   输入一个整形数组，数组里有正数也有负数。数组中连续的一个或多个整数组成一个子数组，每个子数组都有一个和。求所有子数组的和的最大值。例如输入的数组为，和最大的子数组为3, 10, -4, 7, 2，因此输出为该子数组的和18。
+    </script>
+  </body>
+</html>
