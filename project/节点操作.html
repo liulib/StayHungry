@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        background-color: skyblue;
+      }
+      #other {
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <!-- 怎样添加、移除、移动、复制、创建和查找节点？ -->
+      <p id="p">怎样添加、移除、移动、复制、创建和查找节点</p>
+    </div>
+    <div id="other">
+      怎么移动节点
+    </div>
+    <script>
+      // 查找节点
+      var container = document.getElementById('container')
+      // 创建节点
+      var span = document.createElement('span')
+      span.innerText = '创建节点'
+      // 添加节点
+      container.appendChild(span)
+      // 复制节点
+      var tmpP = document.getElementById('p')
+      var cloneP = tmpP.cloneNode()
+      cloneP.innerText += '这是复制的p标签'
+      container.appendChild(cloneP)
+      // 移动节点
+      container.insertBefore(cloneP, tmpP)
+      // 移除节点
+      container.removeChild(tmpP)
+    </script>
+  </body>
+</html>

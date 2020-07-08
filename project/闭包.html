@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 写一个闭包实现f(1)(2)输出3 -->
+    <script>
+      function f(a) {
+        function addVal(b) {
+          return a + b
+        }
+        return addVal
+      }
+      console.log(f(1)(2))
+    </script>
+  </body>
+</html>
