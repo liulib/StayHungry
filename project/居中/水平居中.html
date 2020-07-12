@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        position: relative;
+      }
+      .content {
+        background-color: skyblue;
+        width: 500px;
+        height: 500px;
+      }
+      /* 行内元素用text-align */
+      /* 块级元素 */
+      /* 宽度确定 */
+      /* .content {
+        width: 100px;
+        margin: 0 auto;
+      } */
+      /* 宽度不确定 */
+      /* 第一种 */
+      /* .content {
+        display: table;
+        margin: 0 auto;
+        border: 1px solid red;
+      } */
+      /* 第二种 */
+      /* .container {
+        text-align: center;
+      }
+      .content {
+        display: inline-block;
+      } */
+      /* 绝对定位居中 */
+      /* .content {
+        position: absolute;
+        width: 500px;
+        left: 50%;
+        transform: translateX(-50%);
+      } */
+      /* .content {
+        position: absolute;
+        width: 500px;
+        left: 50%;
+        margin-left: -250px;
+      } */
+      /* flex居中 */
+      /* .container {
+        display: flex;
+        justify-content: center;
+      }
+      .content {
+        width: 500px;
+      } */
+      /* 绝对定位加margin auto */
+      /* left和right设置为相等的值，随意多少 */
+      .content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">水平居中</div>
+    </div>
+  </body>
+</html>
