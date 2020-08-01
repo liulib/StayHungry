@@ -1,0 +1,82 @@
+<!--
+ * @Author       : liulib
+ * @Date         : 2020-08-01 00:31:52
+ * @LastEditors  : liulib
+ * @LastEditTime : 2020-08-01 09:10:43
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        width: 500px;
+        height: 300px;
+        background-color: skyblue;
+        text-align: center;
+        margin: 0 auto;
+      }
+      #time {
+        width: 100%;
+        height: 250px;
+        line-height: 250px;
+        font-size: 50px;
+      }
+      .container button {
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="time">00:00:00</div>
+      <button id="control">开始</button>
+    </div>
+    <script>
+      const time = document.getElementById('time')
+      const control = document.getElementById('control')
+      //   表示当前计时器工作状态
+      let status = false
+      //   时间
+      let count = 0
+      //   计时器ID
+      let timerId = null
+      //   给按钮绑定事件
+      control.onclick = function () {
+        if (!status) {
+          timerId = setInterval(() => {
+            count++
+            time.innerText = formatTime(count)
+          }, 1000)
+          control.innerText = '暂停'
+        } else {
+          clearInterval(timerId)
+          control.innerText = '开始'
+        }
+        status = !status
+      }
+      //   格式化时间
+      function formatTime(seconds) {
+        let min = 0 // 初始化分
+        let hour = 0 // 初始化小时
+        let result = ''
+        if (seconds > 60) {
+          //如果秒数大于60，将秒数转换成整数
+          min = parseInt(seconds / 60) //获取分钟，除以60取整数，得到整数分钟
+          seconds = parseInt(seconds % 60) //获取秒数，秒数取佘，得到整数秒数
+          if (min > 60) {
+            //如果分钟大于60，将分钟转换成小时
+            hour = parseInt(min / 60) //获取小时，获取分钟除以60，得到整数小时
+            min = parseInt(min % 60) //获取小时后取佘的分，获取分钟除以60取佘的分
+          }
+        }
+        result = `${hour.toString().padStart(2, '0')}:${min
+          .toString()
+          .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+        return result
+      }
+    </script>
+  </body>
+</html>
