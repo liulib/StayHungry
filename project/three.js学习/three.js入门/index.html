@@ -1,0 +1,95 @@
+<!--
+ * @Author       : liulib
+ * @Date         : 2020-08-02 15:16:04
+ * @LastEditors  : liulib
+ * @LastEditTime : 2020-08-02 18:42:38
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+    <script type="text/javascript" src="../js/three.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      // 创建screen 物体都是放在场景内的
+      var scene = new THREE.Scene()
+      // 创建照相机 参数分别为 角度 长宽比 近截面 远截面
+      // 这里可以理解为 我们创建的是一个黑盒 得用这个照相机去观察
+      var camera = new THREE.PerspectiveCamera(45, 4 / 3, 0.1, 1000)
+      // 放置照相机位置 有坐标系概念
+      camera.position.set(4, 3, 6)
+      // 调整角度
+      camera.lookAt(new THREE.Vector3(0, 0, 0))
+
+      // 创建物体
+      var cube = new THREE.Mesh(
+        new THREE.CubeGeometry(6, 2, 2),
+        new THREE.MeshLambertMaterial({
+          color: 0xffffff,
+        })
+      )
+      // 加入到场景中
+      scene.add(cube)
+
+      // 创建左前轮
+      var leftFrontWheel = new THREE.Mesh(
+        new THREE.TorusGeometry(0.6, 0.3, 18, 18),
+        new THREE.MeshBasicMaterial({
+          color: '#7c7c7c',
+        })
+      )
+      leftFrontWheel.position.set(1.5, -1, 1)
+      scene.add(leftFrontWheel)
+
+      // 创建左后轮
+      var leftBackWheel = new THREE.Mesh(
+        new THREE.TorusGeometry(0.6, 0.3, 18, 18),
+        new THREE.MeshBasicMaterial({
+          color: '#7c7c7c',
+        })
+      )
+      leftBackWheel.position.set(-1.5, -1, 1)
+      scene.add(leftBackWheel)
+
+      // 创建右前轮
+      var rightFrontWheel = new THREE.Mesh(
+        new THREE.TorusGeometry(0.6, 0.3, 18, 18),
+        new THREE.MeshBasicMaterial({
+          color: '#7c7c7c',
+        })
+      )
+      rightFrontWheel.position.set(-1.5, -1, -1)
+      scene.add(rightFrontWheel)
+
+      // 创建右后轮
+      var rightBackWheel = new THREE.Mesh(
+        new THREE.TorusGeometry(0.6, 0.3, 18, 18),
+        new THREE.MeshBasicMaterial({
+          color: '#7c7c7c',
+        })
+      )
+      rightBackWheel.position.set(-1.5, -1, -1)
+      scene.add(rightBackWheel)
+
+      // 创建灯光
+      var light = new THREE.DirectionalLight()
+      light.position.set(2, 5, 3)
+      scene.add(light)
+
+      // 创建renderer 概念类似画布
+      var renderer = new THREE.WebGLRenderer()
+      renderer.setSize(800, 800)
+      document.getElementById('container').appendChild(renderer.domElement)
+      // 设置画布颜色
+      // renderer.setClearColor(0x000000)
+
+      // 重点在这一句，显示场景与相机 将场景和相机在画布上渲染出来
+      renderer.render(scene, camera)
+    </script>
+  </body>
+</html>
